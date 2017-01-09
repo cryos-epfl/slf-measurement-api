@@ -13,7 +13,7 @@ public class ApplicationFields {
     public static final ZoneId ZONE_ID = ZoneId.of("Europe/Zurich");
     public static final TimeZone TIME_ZONE = TimeZone.getTimeZone(ZONE_ID);
 
-    public static final String SCHEMA = "data_quality";
+    public static final String SCHEMA = "data_quality.measurement";
 
     public static final String SECURITY_BUNDLE = "AVAL";
     public static final String BASE_SCAN_PACKAGES =
