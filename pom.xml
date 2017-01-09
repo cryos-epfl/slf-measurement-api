@@ -37,7 +37,7 @@
 	</profiles>
 
 	<build>
-		<finalName>pgmetadata</finalName>
+		<finalName>measurement</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
