@@ -2,11 +2,9 @@ package ch.epfl.cryos.osper.measurement.model;
 
 import ch.epfl.cryos.osper.measurement.ApplicationFields;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 /**
  * Created by kryvych on 29/12/16.
@@ -30,6 +28,15 @@ public class Measurand {
     private String aggregationType;
 
     private String unit;
+
+    @ManyToMany()
+    @JoinTable(
+            name = "measurand_measurand_group",
+            schema = ApplicationFields.SCHEMA,
+            joinColumns = @JoinColumn(name = "measurand_id "),
+            inverseJoinColumns = @JoinColumn(name = "measurand_group_id")
+    )
+    private Set<Group> groups;
 
     private Measurand() {
     }
@@ -81,5 +88,13 @@ public class Measurand {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 }

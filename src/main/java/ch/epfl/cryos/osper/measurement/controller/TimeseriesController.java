@@ -3,6 +3,7 @@ package ch.epfl.cryos.osper.measurement.controller;
 import ch.epfl.cryos.osper.measurement.ApplicationFields;
 import ch.epfl.cryos.osper.measurement.dto.TimeserieDto;
 import ch.epfl.cryos.osper.measurement.dto.TimeserieQueryDto;
+import ch.epfl.cryos.osper.measurement.model.Measurand;
 import ch.epfl.cryos.osper.measurement.service.MeasurandService;
 import ch.epfl.cryos.osper.measurement.service.TimeserieService;
 import io.swagger.annotations.*;
@@ -79,5 +80,14 @@ public class TimeseriesController {
         return timeserieService.getForStation(stationId);
     }
 
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(
+            value = "measurands",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get data", notes = "Returns all available measurands ", response = String.class)
 
+    public List<Measurand> allMeasurands() {
+        return measurandService.getAllMeasurands();
+    }
 }

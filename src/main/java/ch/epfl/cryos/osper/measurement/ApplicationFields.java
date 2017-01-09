@@ -31,6 +31,7 @@ public class ApplicationFields {
 
     public static final String REST_MAPPING_COMPONENT_INFO = "/info";
     public static final String REST_MEASUREMENT = "/measurement";
+    public static final String REST_MEASURAND = "/measurand";
     public static final String REST_MAPPING_EXCEPTION = "exception";
 
 
