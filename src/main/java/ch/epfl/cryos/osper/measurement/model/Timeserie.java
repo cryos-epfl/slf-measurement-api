@@ -25,6 +25,9 @@ public class Timeserie {
     @NotNull
     private Long deviceId;
 
+    @Column(name = "device_code")
+    private String deviceCode;
+
     @ManyToOne
     @JoinColumn(name = "measurand_id")
     private Measurand measurand;
@@ -83,5 +86,13 @@ public class Timeserie {
     public void setUntil(Date until) {
 
         this.until = until;
+    }
+
+    public String getDeviceCode() {
+        return deviceCode;
+    }
+
+    public void setDeviceCode(String deviceCode) {
+        this.deviceCode = deviceCode;
     }
 }
