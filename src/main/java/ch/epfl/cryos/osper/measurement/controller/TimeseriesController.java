@@ -4,6 +4,8 @@ import ch.epfl.cryos.osper.measurement.ApplicationFields;
 import ch.epfl.cryos.osper.measurement.dto.TimeserieDto;
 import ch.epfl.cryos.osper.measurement.dto.TimeserieQueryDto;
 import ch.epfl.cryos.osper.measurement.model.Measurand;
+import ch.epfl.cryos.osper.measurement.model.Measurement;
+import ch.epfl.cryos.osper.measurement.model.Timeserie;
 import ch.epfl.cryos.osper.measurement.service.MeasurandService;
 import ch.epfl.cryos.osper.measurement.service.TimeserieService;
 import io.swagger.annotations.*;
@@ -53,15 +55,60 @@ public class TimeseriesController {
     public TimeserieDto getTimeserieById(
             @PathVariable(value = "timeserieId") @ApiParam(value = "Timeserie ID", required = true) Long timeserieId,
             @ApiIgnore TimeserieQueryDto query
-//            @RequestParam(value ="from", required = false)
-//            @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mmZ") Date from,
-//            @RequestParam(value ="to", required = false)
-//            @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mmZ") Date to
     ) {
 
         System.out.println("!!! QUERY = " + query);
 
         return timeserieService.getTimeserieForQuery(timeserieId, query);
+    }
+
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(
+            value = "timeseries/{timeserieId}/info",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get data", notes = "Returns timeserie metadata and data JSON format. ", response = String.class)
+
+    public Timeserie getTimeserieInfoById(
+            @PathVariable(value = "timeserieId") @ApiParam(value = "Timeserie ID", required = true) Long timeserieId
+    ) {
+
+        return timeserieService.getTimeserieInfo(timeserieId);
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(
+            value = "timeseries/{timeserieId}/data",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get data", notes = "Returns timeserie data JSON format. ", response = String.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "from", value = "Start of the timespan " + ZONED_DATE_TIME, required = false, paramType = "query", defaultValue = "2016-11-17T13:00Z"),
+            @ApiImplicitParam(name = "until", value = "End of the timespan " + ZONED_DATE_TIME, required = false, paramType = "query", defaultValue = "2016-11-17T18:00Z"),
+            @ApiImplicitParam(name = "limit", value = "Row number limit ", required = false, paramType = "query")
+    })
+
+    public List<Measurement> getTimeserieDataById(
+            @PathVariable(value = "timeserieId") @ApiParam(value = "Timeserie ID", required = true) Long timeserieId,
+            @ApiIgnore TimeserieQueryDto query
+    ) {
+
+        System.out.println("!!! QUERY = " + query);
+
+        return timeserieService.getMeasurementsForTimeserie(timeserieId, query);
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(
+            value = "timeseries",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get data", notes = "Returns timeserie metadata for a given station Id in JSON format. ", response = String.class)
+
+
+    public List<Timeserie> getAllTimeseries() {
+        return timeserieService.getAllTimeseries();
     }
 
 
@@ -73,12 +120,13 @@ public class TimeseriesController {
     @ApiOperation(value = "Get data", notes = "Returns timeserie metadata for a given station Id in JSON format. ", response = String.class)
 
 
-    public List<TimeserieDto> getTimeseriesForStation(
+    public List<Timeserie> getTimeseriesForStation(
             @PathVariable(value = "stationId") @ApiParam(value = "station id", required = true) Long stationId
     ) {
 
         return timeserieService.getForStation(stationId);
     }
+
 
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(
