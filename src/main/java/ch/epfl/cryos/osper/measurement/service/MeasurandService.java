@@ -23,4 +23,10 @@ public class MeasurandService {
     public List<Measurand> getAllMeasurands() {
         return repository.findAll();
     }
+
+    public List<Measurand> findByGroupsCode(String groupCode) {
+        return repository.findByGroupsCode(groupCode.toUpperCase());
+    }
+
+
 }

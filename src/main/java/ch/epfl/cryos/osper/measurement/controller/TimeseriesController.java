@@ -11,6 +11,7 @@ import ch.epfl.cryos.osper.measurement.service.TimeserieService;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -135,7 +136,12 @@ public class TimeseriesController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get data", notes = "Returns all available measurands ", response = String.class)
 
-    public List<Measurand> allMeasurands() {
+    public List<Measurand> allMeasurands(
+            @RequestParam(value = "groupCode", required = false) String groupCode) {
+
+        if (!StringUtils.isEmpty(groupCode)) {
+            return measurandService.findByGroupsCode(groupCode);
+        }
         return measurandService.getAllMeasurands();
     }
 }
