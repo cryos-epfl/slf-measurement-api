@@ -1,6 +1,8 @@
 package ch.epfl.cryos.osper.measurement.service;
 
+import ch.epfl.cryos.osper.measurement.model.Group;
 import ch.epfl.cryos.osper.measurement.model.Measurand;
+import ch.epfl.cryos.osper.measurement.repository.GroupRepository;
 import ch.epfl.cryos.osper.measurement.repository.MeasurandRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.List;
 public class MeasurandService {
 
     private final MeasurandRepository repository;
+    private final GroupRepository groupRepository;
 
     @Inject
-    public MeasurandService(MeasurandRepository repository) {
+    public MeasurandService(MeasurandRepository repository, GroupRepository groupRepository) {
         this.repository = repository;
+        this.groupRepository = groupRepository;
     }
 
     public List<Measurand> getAllMeasurands() {
@@ -28,5 +32,8 @@ public class MeasurandService {
         return repository.findByGroupsCode(groupCode.toUpperCase());
     }
 
+    public List<Group> getAllGroups() {
+        return groupRepository.findAll();
+    }
 
 }

@@ -3,6 +3,7 @@ package ch.epfl.cryos.osper.measurement.controller;
 import ch.epfl.cryos.osper.measurement.ApplicationFields;
 import ch.epfl.cryos.osper.measurement.dto.TimeserieDto;
 import ch.epfl.cryos.osper.measurement.dto.TimeserieQueryDto;
+import ch.epfl.cryos.osper.measurement.model.Group;
 import ch.epfl.cryos.osper.measurement.model.Measurand;
 import ch.epfl.cryos.osper.measurement.model.Measurement;
 import ch.epfl.cryos.osper.measurement.model.Timeserie;
@@ -143,5 +144,16 @@ public class TimeseriesController {
             return measurandService.findByGroupsCode(groupCode);
         }
         return measurandService.getAllMeasurands();
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(
+            value = "groups",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get data", notes = "Returns all available groups ", response = String.class)
+
+    public List<Group> allMeasurands() {
+        return measurandService.getAllGroups();
     }
 }

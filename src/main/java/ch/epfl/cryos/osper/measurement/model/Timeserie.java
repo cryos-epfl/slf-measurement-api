@@ -1,6 +1,7 @@
 package ch.epfl.cryos.osper.measurement.model;
 
 import ch.epfl.cryos.osper.measurement.ApplicationFields;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,7 +31,11 @@ public class Timeserie {
 
     @ManyToOne
     @JoinColumn(name = "measurand_id")
+    @JsonUnwrapped
     private Measurand measurand;
+
+    @Column(name = "seq_nr")
+    private int sequenceNumber;
 
     private Date since;
 
@@ -94,5 +99,13 @@ public class Timeserie {
 
     public void setDeviceCode(String deviceCode) {
         this.deviceCode = deviceCode;
+    }
+
+    public int getSequenceNumber() {
+        return sequenceNumber;
+    }
+
+    public void setSequenceNumber(int sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
     }
 }
