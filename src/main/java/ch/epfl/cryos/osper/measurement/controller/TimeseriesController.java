@@ -59,8 +59,6 @@ public class TimeseriesController {
             @ApiIgnore TimeserieQueryDto query
     ) {
 
-        System.out.println("!!! QUERY = " + query);
-
         return timeserieService.getTimeserieForQuery(timeserieId, query);
     }
 

@@ -1,7 +1,9 @@
 package ch.epfl.cryos.osper.measurement.model;
 
 import ch.epfl.cryos.osper.measurement.ApplicationFields;
+import ch.epfl.cryos.osper.measurement.util.DateSerializer;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,8 +39,10 @@ public class Timeserie {
     @Column(name = "seq_nr")
     private int sequenceNumber;
 
+    @JsonSerialize(using = DateSerializer.class)
     private Date since;
 
+    @JsonSerialize(using = DateSerializer.class)
     private Date until;
 
     private Timeserie() {
