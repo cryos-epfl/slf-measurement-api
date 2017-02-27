@@ -1,6 +1,7 @@
 package ch.epfl.cryos.osper.measurement.model;
 
 import ch.epfl.cryos.osper.measurement.ApplicationFields;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ public class Measurand {
 
     @Id
     @NotNull
+    @JsonIgnore
     private Long id;
 
     private String code;

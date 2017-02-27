@@ -1,7 +1,8 @@
 package ch.epfl.cryos.osper.measurement.dto;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import org.apache.commons.lang3.time.DateUtils;
 
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -9,10 +10,12 @@ import java.util.Date;
  */
 public class TimeserieQueryDto {
 
-    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mmZ")
+    private static final String[] DATE_FORMATS = {"yyyy-MM-dd'T'HH:mm'Z'"
+            , "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            , "yyyy-MM-dd"};
+
     private Date from;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mmZ")
     private Date until;
 
     private boolean includeData = true;
@@ -22,21 +25,28 @@ public class TimeserieQueryDto {
     private Integer limit;
 
 
-
-    public Date getFrom() {
-        return from;
+    public TimeserieQueryDto() {
     }
 
-    public void setFrom(Date from) {
-        this.from = from;
+    public void setFrom(String from) {
+
+        try {
+            this.from = DateUtils.parseDate(from, DATE_FORMATS);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Not supported date format");
+        }
     }
 
     public Date getUntil() {
         return until;
     }
 
-    public void setUntil(Date until) {
-        this.until = until;
+    public void setUntil(String until) {
+        try {
+            this.until = DateUtils.parseDate(until, DATE_FORMATS);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Not supported data format");
+        }
     }
 
     public Integer getLimit() {
@@ -61,6 +71,10 @@ public class TimeserieQueryDto {
 
     public void setIncludeInfo(boolean includeInfo) {
         this.includeInfo = includeInfo;
+    }
+
+    public Date getFrom() {
+        return from;
     }
 
     @Override

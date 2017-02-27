@@ -19,7 +19,6 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.inject.Inject;
 import java.util.List;
 
-import static ch.slf.pro.common.util.time.ISOTimeFormat.ZONED_DATE_TIME;
 
 /**
  * Created by kryvych on 23/12/16.
@@ -29,6 +28,7 @@ import static ch.slf.pro.common.util.time.ISOTimeFormat.ZONED_DATE_TIME;
 @Api(value = "Controller for accessing measurement data")
 public class TimeseriesController {
 
+    private final static String DATE_TIME_FORMATS = "2016-11-17 or 2016-11-17T13:00Z or 2016-11-17T13:00:00Z";
 
     private final MeasurandService measurandService;
     private final TimeserieService timeserieService;
@@ -49,8 +49,8 @@ public class TimeseriesController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "includeData", value = "Include data", required = false, allowMultiple = false, paramType = "query", dataType = "boolean", defaultValue = "true"),
             @ApiImplicitParam(name = "includeInfo", value = "Include info", required = false, allowMultiple = false, paramType = "query", dataType = "boolean", defaultValue = "true"),
-            @ApiImplicitParam(name = "from", value = "Start of the timespan " + ZONED_DATE_TIME, required = false, paramType = "query", defaultValue = "2016-11-17T13:00Z"),
-            @ApiImplicitParam(name = "until", value = "End of the timespan " + ZONED_DATE_TIME, required = false, paramType = "query", defaultValue = "2017-01-05T13:00Z"),
+            @ApiImplicitParam(name = "from", value = "Start of the timespan " + DATE_TIME_FORMATS, required = false, paramType = "query", defaultValue = "2016-11-17T13:00Z"),
+            @ApiImplicitParam(name = "until", value = "End of the timespan " + DATE_TIME_FORMATS, required = false, paramType = "query", defaultValue = "2017-01-05T13:00Z"),
             @ApiImplicitParam(name = "limit", value = "Row number limit ", required = false, paramType = "query")
     })
 
@@ -84,8 +84,8 @@ public class TimeseriesController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get data", notes = "Returns timeserie data JSON format. ", response = String.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "from", value = "Start of the timespan " + ZONED_DATE_TIME, required = false, paramType = "query", defaultValue = "2016-11-17T13:00Z"),
-            @ApiImplicitParam(name = "until", value = "End of the timespan " + ZONED_DATE_TIME, required = false, paramType = "query", defaultValue = "2016-11-17T18:00Z"),
+            @ApiImplicitParam(name = "from", value = "Start of the timespan " + DATE_TIME_FORMATS, required = false, paramType = "query", defaultValue = "2016-11-17T13:00Z"),
+            @ApiImplicitParam(name = "until", value = "End of the timespan " + DATE_TIME_FORMATS, required = false, paramType = "query", defaultValue = "2016-11-17T18:00Z"),
             @ApiImplicitParam(name = "limit", value = "Row number limit ", required = false, paramType = "query")
     })
 

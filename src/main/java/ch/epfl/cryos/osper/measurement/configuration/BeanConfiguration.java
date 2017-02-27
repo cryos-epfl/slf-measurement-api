@@ -1,6 +1,7 @@
 package ch.epfl.cryos.osper.measurement.configuration;
 
 import ch.epfl.cryos.osper.measurement.model.Measurement;
+import ch.epfl.cryos.osper.measurement.util.DateSerializer;
 import ch.epfl.cryos.osper.measurement.util.MeasurementSerializer;
 import ch.slf.pro.common.util.converter.ConverterConfiguration;
 import ch.slf.pro.common.util.exception.handler.demo.ExceptionDemoConfig;
@@ -21,6 +22,8 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+
+import java.util.Date;
 
 /**
  * Contains the spring managed beans which cannot be handled by spring autodetection.
@@ -164,7 +167,9 @@ public class BeanConfiguration {
 
     @Autowired
     public void configJackson(Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder) {
-        jackson2ObjectMapperBuilder.serializerByType(Measurement.class, new MeasurementSerializer());
+        DateSerializer dateSerializer = new DateSerializer();
+        jackson2ObjectMapperBuilder.serializerByType(Measurement.class, new MeasurementSerializer(dateSerializer));
+        jackson2ObjectMapperBuilder.serializerByType(Date.class, dateSerializer);
     }
 
 
