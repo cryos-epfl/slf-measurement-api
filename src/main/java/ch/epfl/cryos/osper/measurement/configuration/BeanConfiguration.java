@@ -40,38 +40,6 @@ public class BeanConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(BeanConfiguration.class);
 
-//	@Bean
-//	@Scope("prototype")
-//	public SecurityConfig securityConfig() {
-//		SecurityConfig element = new SecurityConfig();
-//		log.debug("Created element '{}'", element);
-//		return element;
-//	}
-
-//    @Bean
-//    @Scope("singleton")
-//    public FeatureFactory featureFactory() {
-//        FeatureFactory element = new FeatureFactory();
-//        log.debug("Created element '{}'", element);
-//        return element;
-//    }
-
-//    @Bean
-//    @Scope("prototype")
-//    public ExplosionUtils explosionUtils() {
-//        ExplosionUtils element = new ExplosionUtils();
-//        log.debug("Created element '{}'", element);
-//        return element;
-//    }
-
-//    @Bean
-//    @Scope("singleton")
-//    public CrsSridMap crsSridMap() {
-//        CrsSridMap element = OracleCrsSridMap.getInstance();
-//        log.debug("Created element '{}'", element);
-//        return element;
-//    }
-
     @Bean
     @Scope("request")
     public LocalizationService localizationService(){
@@ -80,20 +48,6 @@ public class BeanConfiguration {
         return element;
     }
 
-//    @Bean
-//    public LogReqIdRequestListener logReqIdRequestListener() {
-//        LogReqIdRequestListener element = new LogReqIdRequestListener();
-//        log.debug("Created element '{}'", element);
-//        return element;
-//    }
-//
-//    @Bean
-//    @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
-//    public DataAccessExceptionInfoFactory dataAccessExceptionInfoFactory() {
-//        DataAccessExceptionInfoFactory element = new DataAccessExceptionInfoFactory();
-//        log.debug("Created element '{}'", element);
-//        return element;
-//    }
 
     @Bean
     @Scope("singleton")
@@ -122,39 +76,6 @@ public class BeanConfiguration {
         return element;
     }
 
-
-
-
-
-//	@Bean
-//	public FilterRegistrationBean requestLoggingFilter() {
-//		CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
-//		filter.setIncludeClientInfo(true);
-//		filter.setIncludePayload(true);
-//		filter.setMaxPayloadLength(8192);
-//		filter.setIncludeQueryString(true);
-//		FilterRegistrationBean element = new FilterRegistrationBean(filter);
-//		element.addUrlPatterns(ApplicationFields.REST_MAPPING_DATE_EXAMPLE+"/*", ApplicationFields.REST_MAPPING_EXPLOSION+"/*");
-//		log.debug("Created element '{}'", element);
-//		return element;
-//	}
-
-//    @Bean
-//    @Scope("singleton")
-//    public GeoTransformService geoTransformService() {
-//        GeoTransformServiceImpl element = new GeoTransformServiceImpl();
-//        log.debug("Created element '{}'", element);
-//        return element;
-//    }
-
-//    @Bean
-//    @Scope("singleton")
-//    public FeatureUtil FeatureUtil() {
-//        FeatureUtil element = new FeatureUtil();
-//        log.debug("Created element '{}'", element);
-//        return element;
-//    }
-
     @Bean
     public Module guavaModule() {
         return new GuavaModule();
@@ -172,17 +93,6 @@ public class BeanConfiguration {
         jackson2ObjectMapperBuilder.serializerByType(Date.class, dateSerializer);
     }
 
-
-//    @Bean
-//    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-//        return new JdbcTemplate(dataSource);
-//
-//    }
-
-//    @Autowired
-//    public void configJackson(Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder) {
-//        jackson2ObjectMapperBuilder.serializerByType(Range.class, new TimeRangeSerializer());
-//    }
 
 
 }
