@@ -15,6 +15,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
+
 
 /**
  * Created by kryvych on 09/11/16.
@@ -33,6 +36,7 @@ public class TimeserieDaoTest extends TestCase {
     @Test
     public void testGetAll() {
         List<Timeserie> all = repository.findAll();
+        assertThat(all.size(), greaterThan(1000));
 
     }
 }

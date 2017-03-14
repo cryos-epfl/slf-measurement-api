@@ -6,6 +6,8 @@ import ch.epfl.cryos.osper.measurement.model.Measurement;
 import ch.epfl.cryos.osper.measurement.model.Timeserie;
 import ch.epfl.cryos.osper.measurement.repository.MeasurementRepository;
 import ch.epfl.cryos.osper.measurement.repository.TimeserieRepository;
+import ch.slf.pro.common.util.exception.SlfProRuntimeException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -32,6 +34,10 @@ public class TimeserieService {
         Timeserie timeserieInfo = null;
         if (query.isIncludeInfo()) {
            timeserieInfo = timeserieRepository.findOne(id);
+           if (timeserieInfo == null) {
+               throw  SlfProRuntimeException.builder("Timeserie with ID " + id + "is in not found.", "dae.noStation")
+                       .status(HttpStatus.NOT_FOUND).build();
+           }
         }
 
         if (!query.isIncludeData()) {
